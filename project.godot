@@ -27,6 +27,12 @@ quit={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="bullets"
+2d_physics/layer_3="cleanup"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

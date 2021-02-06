@@ -11,6 +11,10 @@ var num_of_cannons = 8
 var cannon_spawn_pos = 45
 var cannon_spawn_offset = 90
 
+var bullets_dodged = 0
+var max_bullets = 25
+
+
 func _ready():
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
@@ -22,16 +26,22 @@ func _ready():
 	emit_signal('start_cannons')
 	
 	player = Player.instance()
-	print('player is')
-	print(player)
+	player.position = Vector2(360,360)
 	self.add_child(player)
+
 
 func _input(event):
 	if Input.is_action_just_pressed('quit'):
 		get_tree().quit()
 
+
 func _process(delta):
 	player.position = get_global_mouse_position()
 
+
 func _on_CleanupZone_area_entered(area):
 	area.queue_free()
+	bullets_dodged += 1
+	if bullets_dodged == max_bullets:
+		emit_signal("stop_cannons")
+		print("you win")
