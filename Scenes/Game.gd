@@ -1,8 +1,5 @@
 extends Node2D
 
-signal start_cannons
-signal stop_cannons
-
 const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
 var player
@@ -14,16 +11,18 @@ var cannon_spawn_offset = 90
 var bullets_dodged = 0
 var max_bullets = 25
 
+var lives
+
 
 func _ready():
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
 		new_cannon.position.x = cannon_spawn_pos + cannon_spawn_offset * i
-		connect('start_cannons', new_cannon, 'on_start_cannons')
-		connect('stop_cannons', new_cannon, 'on_stop_cannons')
+#		Events.connect('start_cannons', new_cannon, 'on_start_cannons')
+#		Events.connect('stop_cannons', new_cannon, 'on_stop_cannons')
 		$Cannons.add_child(new_cannon)
 	
-	emit_signal('start_cannons')
+	Events.emit_signal('start_cannons')
 	
 	player = Player.instance()
 	player.position = Vector2(360,360)
@@ -42,6 +41,7 @@ func _process(delta):
 func _on_CleanupZone_area_entered(area):
 	area.queue_free()
 	bullets_dodged += 1
+	Events.emit_signal("bullet_dodged", bullets_dodged, max_bullets)
 	if bullets_dodged == max_bullets:
-		emit_signal("stop_cannons")
+		Events.emit_signal("stop_cannons")
 		print("you win")

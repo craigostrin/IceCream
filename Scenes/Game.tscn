@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/GUI.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -8,7 +9,7 @@
 script = ExtResource( 2 )
 
 [node name="Cannons" type="Node2D" parent="."]
-position = Vector2( 0, 575 )
+position = Vector2( 0, 600 )
 
 [node name="CleanupZone" type="Area2D" parent="."]
 position = Vector2( 360, -60 )
@@ -18,5 +19,61 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CleanupZone"]
 shape = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FooterPanel" type="Panel" parent="CanvasLayer/GUI"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -37.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GUI/FooterPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 13.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LivesLabel" type="RichTextLabel" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_right = 237.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center]Lives: [b]00[/b][/center]"
+text = "Lives: 00"
+scroll_active = false
+
+[node name="ScoopsLabel" type="RichTextLabel" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 241.0
+margin_right = 478.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center]Scoops: [b]00/000[/b][/center]"
+text = "Scoops: 00/000"
+scroll_active = false
+
+[node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 482.0
+margin_right = 720.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center]Score: [b]0000[/b][/center]"
+text = "Score: 0000"
+scroll_active = false
 
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
