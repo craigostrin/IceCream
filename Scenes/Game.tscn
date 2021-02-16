@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://Font/RetroFontBig.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/GUI.gd" type="Script" id=3]
+[ext_resource path="res://GUI/GUI.gd" type="Script" id=3]
+[ext_resource path="res://Font/RetroFontFooter.tres" type="DynamicFont" id=4]
+[ext_resource path="res://GUI/PausePopup.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.152941, 0.152941, 0.152941, 0.470588 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
@@ -25,6 +31,8 @@ shape = SubResource( 1 )
 [node name="GUI" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -0.667419
+margin_bottom = -0.667419
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -42,38 +50,93 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GUI/FooterPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 13.0
+margin_left = 20.0
+margin_right = -20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LivesLabel" type="RichTextLabel" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_right = 237.0
-margin_bottom = 24.0
+[node name="LivesLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_right = 167.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
-bbcode_enabled = true
-bbcode_text = "[center]Lives: [b]00[/b][/center]"
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 4 )
 text = "Lives: 00"
-scroll_active = false
+align = 1
+valign = 1
 
-[node name="ScoopsLabel" type="RichTextLabel" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_left = 241.0
-margin_right = 478.0
-margin_bottom = 24.0
+[node name="ScoopsLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 171.0
+margin_right = 338.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
-bbcode_enabled = true
-bbcode_text = "[center]Scoops: [b]00/000[/b][/center]"
-text = "Scoops: 00/000"
-scroll_active = false
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 4 )
+text = "Scoops 00/000"
+align = 1
+valign = 1
 
-[node name="ScoreLabel" type="RichTextLabel" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_left = 482.0
-margin_right = 720.0
-margin_bottom = 24.0
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 342.0
+margin_right = 509.0
+margin_bottom = 37.0
 size_flags_horizontal = 3
-bbcode_enabled = true
-bbcode_text = "[center]Score: [b]0000[/b][/center]"
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 4 )
 text = "Score: 0000"
-scroll_active = false
+align = 1
+valign = 1
+
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 513.0
+margin_right = 680.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+text = "=MENU="
+align = 2
+
+[node name="PausePopup" type="Popup" parent="CanvasLayer"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.667419
+margin_bottom = -0.667419
+popup_exclusive = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="CanvasLayer/PausePopup"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -135.0
+margin_top = -249.59
+margin_right = 135.0
+margin_bottom = 89.4096
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PausePopup/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -49.5
+margin_top = 16.0362
+margin_right = 49.5
+margin_bottom = 52.0362
+custom_fonts/font = ExtResource( 1 )
+text = "PAUSED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
