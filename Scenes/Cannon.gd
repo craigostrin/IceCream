@@ -16,17 +16,19 @@ var max_fire_time := 5.0
 
 func _ready():
 	rng.randomize()
+	#warning-ignore:return_value_discarded
 	Events.connect("start_cannons", self, "on_start_cannons")
+	#warning-ignore:return_value_discarded
 	Events.connect("stop_cannons", self, "on_stop_cannons")
 	reloadTimer.connect("timeout", self, "on_ReloadTimer_timeout")
 	fireTimer.connect("timeout", self, "on_FireTimer_timeout")
 
 
 func on_ReloadTimer_timeout():
-	reload()
+	_reload()
 
 
-func reload():
+func _reload():
 	# If no bullet is ready, make a bullet, add a random speed
 	if not chambered_bullet:
 		chambered_bullet = bullet.instance()
@@ -50,10 +52,8 @@ func start_fire_timer():
 	fireTimer.start(random_fire_time)
 
 
-
 func start_reload_timer():
 	reloadTimer.start(reload_time)
-
 
 
 func get_bullet_speed():
@@ -66,9 +66,16 @@ func get_fire_time():
 
 func on_start_cannons():
 	firing = true
-	reload()
+	_reload()
 
 
 func on_stop_cannons():
 	firing = false
+	reloadTimer.stop()
 	fireTimer.stop()
+
+
+func clear_chambered_bullet():
+	if chambered_bullet:
+		chambered_bullet.queue_free()
+		chambered_bullet = null

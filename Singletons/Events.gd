@@ -1,6 +1,9 @@
 extends Node
 
+signal click_to_start
+
 signal start_cannons
 signal stop_cannons
 
-signal bullet_dodged(current_bullets, max_bullets)
+signal update_lives(current_lives)
+signal update_bullets_and_score(current_bullets, max_bullets, score)

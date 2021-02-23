@@ -3,17 +3,21 @@ extends Node2D
 const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
 var player: Area2D
+onready var levelStartPopup = $CanvasLayer/LevelStartPopup
 
 var num_of_cannons := 8
-var cannon_spawn_pos := 45.0
-var cannon_spawn_offset := 90.0
+const CANNON_SPAWN_POS := 45.0
+const CANNON_SPAWN_OFFSET := 90.0
 
-var bullets_dodged := 0
-var max_bullets := 25
+var bullets_dodged: int
+var max_bullets: int
+const BASE_MAX_BULLETS := 25
 
+var level: int
 var score: int
 var lives: int
 
+var points_per_normal_bullet_dodged = 5
 
 ### TODO ###
 ## Powerups - must touch the bullet, one slot, get overwritten (encouraged to use them quickly)
@@ -29,42 +33,72 @@ var lives: int
 #### - bullets with bonus points
 
 func _ready():
+	Events.connect("click_to_start", self, "on_click_to_start")
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
-		new_cannon.position.x = cannon_spawn_pos + cannon_spawn_offset * i
-#		Events.connect('start_cannons', new_cannon, 'on_start_cannons')
-#		Events.connect('stop_cannons', new_cannon, 'on_stop_cannons')
+		new_cannon.position.x = CANNON_SPAWN_POS + CANNON_SPAWN_OFFSET * i
 		$Cannons.add_child(new_cannon)
 	
 	player = Player.instance()
 	player.position = Vector2(360,360)
 	self.add_child(player)
 	
+	level = 1
+	score = 0
+	lives = 4
+	max_bullets = BASE_MAX_BULLETS
 	start_level()
 
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed('quit'):
 		get_tree().quit()
 
 
-func _process(delta):
+func _process(_delta):
 	player.position = get_global_mouse_position()
 
 
 func start_level():
-	Events.emit_signal('start_cannons')
+	bullets_dodged = 0
+	Events.emit_signal("update_lives", lives)
+	Events.emit_signal("update_bullets_and_score", bullets_dodged, max_bullets, score)
+	fancy_start_cannons()
+
+
+# Cannons do a staggered reload
+func fancy_start_cannons():
+	var cannons = $Cannons.get_children()
+	for cannon in cannons:
+		yield(get_tree().create_timer(0.1), "timeout")
+		cannon.on_start_cannons()
 
 
 func level_cleared():
+	# Stop everything
 	Events.emit_signal("stop_cannons")
+	get_tree().call_group("cannons", "clear_chambered_bullet")
 	get_tree().call_group("bullets", "clear_fired_bullet")
-	print("you win")
+	
+	# Get next level ready
+	setup_next_level()
+
+
+func setup_next_level():
+	level += 1
+	max_bullets = BASE_MAX_BULLETS * level
+	levelStartPopup.bullets_to_show = max_bullets
+	levelStartPopup.popup()
+
+
+func on_click_to_start():
+	start_level()
 
 
 func _on_CleanupZone_area_entered(area):
 	area.queue_free()
 	bullets_dodged += 1
-	Events.emit_signal("bullet_dodged", bullets_dodged, max_bullets)
+	score += points_per_normal_bullet_dodged
+	Events.emit_signal("update_bullets_and_score", bullets_dodged, max_bullets, score)
 	if bullets_dodged == max_bullets:
 		level_cleared()

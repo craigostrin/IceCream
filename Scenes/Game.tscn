@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
 [ext_resource path="res://GUI/GUI.gd" type="Script" id=3]
 [ext_resource path="res://Font/RetroFontFooter.tres" type="DynamicFont" id=4]
-[ext_resource path="res://GUI/PausePopup.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/LevelStartPopup.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -50,55 +50,63 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/GUI/FooterPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
-margin_right = -20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LivesLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_right = 167.0
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_right = 237.0
 margin_bottom = 37.0
+size_flags_horizontal = 3
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer/CenterContainer"]
+margin_left = 71.0
+margin_top = 5.0
+margin_right = 165.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
 text = "Lives: 00"
-align = 1
 valign = 1
 
-[node name="ScoopsLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_left = 171.0
-margin_right = 338.0
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 241.0
+margin_right = 478.0
 margin_bottom = 37.0
+size_flags_horizontal = 3
+
+[node name="BulletsLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer/CenterContainer2"]
+margin_left = 36.0
+margin_top = 5.0
+margin_right = 201.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
-text = "Scoops 00/000"
-align = 1
+text = "Scoops 000/000"
 valign = 1
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_left = 342.0
-margin_right = 509.0
+[node name="CenterContainer3" type="CenterContainer" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
+margin_left = 482.0
+margin_right = 720.0
 margin_bottom = 37.0
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer/CenterContainer3"]
+margin_left = 57.0
+margin_top = 5.0
+margin_right = 180.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
-text = "Score: 0000"
-align = 1
+text = "Cash: $0000"
 valign = 1
 
-[node name="MenuButton" type="MenuButton" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
-margin_left = 513.0
-margin_right = 680.0
-margin_bottom = 37.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 4 )
-text = "=MENU="
-align = 2
-
-[node name="PausePopup" type="Popup" parent="CanvasLayer"]
+[node name="LevelStartPopup" type="Popup" parent="CanvasLayer"]
 pause_mode = 2
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -0.667419
@@ -109,30 +117,83 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="CanvasLayer/PausePopup"]
+[node name="Panel" type="Panel" parent="CanvasLayer/LevelStartPopup"]
 pause_mode = 2
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -135.0
-margin_top = -249.59
-margin_right = 135.0
-margin_bottom = 89.4096
+margin_left = -241.0
+margin_top = -250.0
+margin_right = 240.0
+margin_bottom = 89.0
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/PausePopup/Panel"]
+[node name="GetReadyLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -49.5
-margin_top = 16.0362
-margin_right = 49.5
-margin_bottom = 52.0362
+margin_left = -208.0
+margin_top = 10.0
+margin_right = 208.0
+margin_bottom = 75.0
 custom_fonts/font = ExtResource( 1 )
-text = "PAUSED"
+text = "Level cleared
+get Ready for the Next Level!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LevelStartPopup/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -134.0
+margin_top = -37.5
+margin_right = 134.0
+margin_bottom = 37.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BulletsTextLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel/VBoxContainer"]
+margin_right = 268.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 1 )
+text = "Number of bullets:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BulletsNumLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel/VBoxContainer"]
+margin_top = 40.0
+margin_right = 268.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 1 )
+text = "000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClickLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -156.0
+margin_top = -75.0
+margin_right = 156.0
+custom_fonts/font = ExtResource( 1 )
+text = "Left-click to start..."
 align = 1
 valign = 1
 __meta__ = {
@@ -140,3 +201,4 @@ __meta__ = {
 }
 
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
+[connection signal="about_to_show" from="CanvasLayer/LevelStartPopup" to="CanvasLayer/LevelStartPopup" method="_on_LevelStartPopup_about_to_show"]

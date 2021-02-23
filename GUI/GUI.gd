@@ -1,10 +1,20 @@
 extends Control
 
-onready var scoopsLabel = $FooterPanel/HBoxContainer/ScoopsLabel
+onready var livesLabel = $FooterPanel/HBoxContainer/CenterContainer/LivesLabel
+onready var bulletsLabel = $FooterPanel/HBoxContainer/CenterContainer2/BulletsLabel
+onready var scoreLabel = $FooterPanel/HBoxContainer/CenterContainer3/ScoreLabel
 
 func _ready():
-	Events.connect("bullet_dodged", self, "on_bullet_dodged")
-	scoopsLabel.text = "Scoops: 0/25"
+	#warning-ignore:return_value_discarded
+	Events.connect("update_lives", self, "on_lives_updated")
+	#warning-ignore:return_value_discarded
+	Events.connect("update_bullets_and_score", self, "on_bullets_and_score_updated")
 
-func on_bullet_dodged(bullets_dodged, max_bullets):
-	scoopsLabel.text = "Scoops: " + str(bullets_dodged) + "/" + str(max_bullets)
+
+func on_bullets_and_score_updated(bullets_dodged, max_bullets, total_score):
+	bulletsLabel.text = "Scoops: " + str(bullets_dodged) + "/" + str(max_bullets)
+	scoreLabel.text = "Cash: $" + str(total_score)
+
+
+func on_lives_updated(value):
+	livesLabel.text = "Lives: " + str(value)
