@@ -87,3 +87,11 @@ func clear_chambered_bullet():
 
 func update_game_speed(value):
 	game_speed = value
+
+
+func update_reload_speed(value):
+	pass
+
+
+func update_fire_rate(value):
+	pass

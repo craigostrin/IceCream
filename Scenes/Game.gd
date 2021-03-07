@@ -1,9 +1,12 @@
 extends Node2D
 
+var debug := true
+
 const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
 var player: Area2D
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
+onready var debugPanel = $CanvasLayer/DebugPanel
 
 var num_of_cannons := 8
 const CANNON_SPAWN_POS := 45.0
@@ -49,12 +52,15 @@ func _ready():
 	player.position = Vector2(360,360)
 	self.add_child(player)
 	
+	# LEVEL 1 SETUP
 	level = 1
 	score = 0
 	lives = 4
 	game_speed = BASE_GAME_SPEED
 	max_bullets = BASE_MAX_BULLETS_PER_LEVEL
-	get_tree().call_group("cannons", "update_game_speed", game_speed)
+	if not debug:
+		get_tree().call_group("cannons", "update_game_speed", game_speed)
+		debugPanel.hide()
 	start_level()
 
 
