@@ -7,12 +7,16 @@ onready var fireTimer = $FireTimer
 
 var chambered_bullet: Area2D
 
+var game_speed := 1.0
 var min_bullet_speed := 125.0
 var max_bullet_speed := 175.0
 var firing = false
-var reload_time := 1.0
-var min_fire_time := 1.0
-var max_fire_time := 5.0
+var reload_time: float
+var min_fire_time: float
+var max_fire_time: float
+const BASE_RELOAD_TIME := 1.0
+const BASE_MIN_FIRE_TIME := 1.0
+const BASE_MAX_FIRE_TIME := 5.0
 
 func _ready():
 	rng.randomize()
@@ -32,7 +36,7 @@ func _reload():
 	# If no bullet is ready, make a bullet, add a random speed
 	if not chambered_bullet:
 		chambered_bullet = bullet.instance()
-		chambered_bullet.init(get_bullet_speed())
+		chambered_bullet.init(game_speed * get_bullet_speed())
 		self.add_child(chambered_bullet)
 	if firing:
 		start_fire_timer()
@@ -79,3 +83,7 @@ func clear_chambered_bullet():
 	if chambered_bullet:
 		chambered_bullet.queue_free()
 		chambered_bullet = null
+
+
+func update_game_speed(value):
+	game_speed = value

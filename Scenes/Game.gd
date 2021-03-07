@@ -9,9 +9,12 @@ var num_of_cannons := 8
 const CANNON_SPAWN_POS := 45.0
 const CANNON_SPAWN_OFFSET := 90.0
 
+var game_speed: float
+const BASE_GAME_SPEED := 1.0
+
 var bullets_dodged: int
 var max_bullets: int
-const BASE_MAX_BULLETS := 25
+const BASE_MAX_BULLETS_PER_LEVEL := 25
 
 var level: int
 var score: int
@@ -20,6 +23,8 @@ var lives: int
 var points_per_normal_bullet_dodged = 5
 
 ### TODO ###
+## Build a debugging tool to change bullet speed, reload time, fire time while game is running
+
 ## Powerups - must touch the bullet, one slot, get overwritten (encouraged to use them quickly)
 #### - pause & teleport
 #### - get tiny
@@ -37,6 +42,7 @@ func _ready():
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
 		new_cannon.position.x = CANNON_SPAWN_POS + CANNON_SPAWN_OFFSET * i
+		new_cannon.game_speed = self.game_speed
 		$Cannons.add_child(new_cannon)
 	
 	player = Player.instance()
@@ -46,7 +52,9 @@ func _ready():
 	level = 1
 	score = 0
 	lives = 4
-	max_bullets = BASE_MAX_BULLETS
+	game_speed = BASE_GAME_SPEED
+	max_bullets = BASE_MAX_BULLETS_PER_LEVEL
+	get_tree().call_group("cannons", "update_game_speed", game_speed)
 	start_level()
 
 
@@ -86,7 +94,9 @@ func level_cleared():
 
 func setup_next_level():
 	level += 1
-	max_bullets = BASE_MAX_BULLETS * level
+	game_speed = BASE_GAME_SPEED + 1.0
+	get_tree().call_group("cannons", "update_game_speed", game_speed)
+	max_bullets = BASE_MAX_BULLETS_PER_LEVEL * level
 	levelStartPopup.bullets_to_show = max_bullets
 	levelStartPopup.popup()
 
