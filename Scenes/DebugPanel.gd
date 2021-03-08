@@ -6,15 +6,15 @@ onready var reloadEdit = $HBoxContainer/HBoxContainer2/ReloadLineEdit
 onready var minFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer3/MinFireLineEdit
 onready var maxFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer4/MaxFireLineEdit
 
-#func update_min_bullet_speed(value):
-#
-#func update_max_bullet_speed(value):
-#
-#func update_reload_time(value):
-#
-#func update_min_fire_time(value):
-#
-#func update_max_fire_time(value):
+var firing := true
+
+# Right-click start/stop button shortcut
+func _input(event):
+	if Input.is_action_just_pressed('right_click'):
+		if firing:
+			_on_StopButton_pressed()
+		else:
+			_on_StartButton_pressed()
 
 func _on_MinSpeedLineEdit_text_entered(new_text):
 	if new_text.is_valid_float():
@@ -64,7 +64,10 @@ func _on_StopButton_pressed():
 	Events.emit_signal("stop_cannons")
 	get_tree().call_group("cannons", "clear_chambered_bullet")
 	get_tree().call_group("bullets", "clear_fired_bullet")
-
+	firing = false
+	print("======STOP!======")
 
 func _on_StartButton_pressed():
 	Events.emit_signal("start_cannons")
+	firing = true
+	print("======START======")

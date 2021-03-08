@@ -86,6 +86,7 @@ func start_level():
 
 
 # Cannons do a staggered reload
+# I don't know how to do something like this with signals @_@
 func fancy_start_cannons():
 	var cannons = $Cannons.get_children()
 	for cannon in cannons:
