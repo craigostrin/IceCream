@@ -5,21 +5,26 @@ var bullet = preload("res://Scenes/Bullet.tscn")
 onready var reloadTimer = $ReloadTimer
 onready var fireTimer = $FireTimer
 
-var chambered_bullet: Area2D
-
-var game_speed := 1.0
-var min_bullet_speed := 125.0
-var max_bullet_speed := 175.0
-var firing = false
-var reload_time: float
-var min_fire_time: float
-var max_fire_time: float
 const BASE_RELOAD_TIME := 1.0
 const BASE_MIN_FIRE_TIME := 1.0
 const BASE_MAX_FIRE_TIME := 5.0
+const BASE_MIN_BULLET_SPEED := 125.0
+const BASE_MAX_BULLET_SPEED := 175.0
+
+var chambered_bullet: Area2D
+
+var game_speed: float
+var min_bullet_speed := BASE_MIN_BULLET_SPEED
+var max_bullet_speed := BASE_MAX_BULLET_SPEED
+var firing = false
+
+var reload_time := BASE_RELOAD_TIME
+var min_fire_time := BASE_MIN_FIRE_TIME
+var max_fire_time := BASE_MAX_FIRE_TIME
 
 func _ready():
 	rng.randomize()
+	
 	#warning-ignore:return_value_discarded
 	Events.connect("start_cannons", self, "on_start_cannons")
 	#warning-ignore:return_value_discarded
@@ -89,9 +94,18 @@ func update_game_speed(value):
 	game_speed = value
 
 
-func update_reload_speed(value):
-	pass
+# DEBUG ONLY
+func update_min_bullet_speed(value):
+	min_bullet_speed = value
 
+func update_max_bullet_speed(value):
+	max_bullet_speed = value
 
-func update_fire_rate(value):
-	pass
+func update_reload_time(value):
+	reload_time = value
+
+func update_min_fire_time(value):
+	min_fire_time = value
+
+func update_max_fire_time(value):
+	max_fire_time = value

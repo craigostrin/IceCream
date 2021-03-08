@@ -12,6 +12,8 @@ var num_of_cannons := 8
 const CANNON_SPAWN_POS := 45.0
 const CANNON_SPAWN_OFFSET := 90.0
 
+# To set on cannons, which also have their own game_speed var
+# Multiplies bullet speed, might be used for reload/fire rates but not currently? 3/7/21
 var game_speed: float
 const BASE_GAME_SPEED := 1.0
 
@@ -45,7 +47,6 @@ func _ready():
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
 		new_cannon.position.x = CANNON_SPAWN_POS + CANNON_SPAWN_OFFSET * i
-		new_cannon.game_speed = self.game_speed
 		$Cannons.add_child(new_cannon)
 	
 	player = Player.instance()
@@ -53,14 +54,18 @@ func _ready():
 	self.add_child(player)
 	
 	# LEVEL 1 SETUP
+	debugPanel.hide()
 	level = 1
 	score = 0
 	lives = 4
 	game_speed = BASE_GAME_SPEED
 	max_bullets = BASE_MAX_BULLETS_PER_LEVEL
-	if not debug:
-		get_tree().call_group("cannons", "update_game_speed", game_speed)
-		debugPanel.hide()
+	
+	if debug:
+		debugPanel.show()
+		max_bullets = 1000
+	
+	get_tree().call_group("cannons", "update_game_speed", game_speed)
 	start_level()
 
 
