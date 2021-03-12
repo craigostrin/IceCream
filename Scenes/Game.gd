@@ -2,24 +2,30 @@ extends Node2D
 
 var debug := true
 
+# Cannon setup
+const NUM_CANNONS := 8
+const CANNON_SPAWN_POS := 45.0
+const CANNON_SPAWN_OFFSET := 90.0
+
+# Difficulty
+const BASE_GAME_SPEED := 1.0
+const BASE_MAX_BULLETS_PER_LEVEL := 25
+const STARTING_LIVES := 4
+
 const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
 var player: Area2D
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
 onready var debugPanel = $CanvasLayer/DebugPanel
 
-var num_of_cannons := 8
-const CANNON_SPAWN_POS := 45.0
-const CANNON_SPAWN_OFFSET := 90.0
+var num_of_cannons := NUM_CANNONS
 
 # To set on cannons, which also have their own game_speed var
 # Multiplies bullet speed, might be used for reload/fire rates but not currently? 3/7/21
 var game_speed: float
-const BASE_GAME_SPEED := 1.0
 
 var bullets_dodged: int
 var max_bullets: int
-const BASE_MAX_BULLETS_PER_LEVEL := 25
 
 var level: int
 var score: int
@@ -43,7 +49,8 @@ var points_per_normal_bullet_dodged = 5
 #### - bullets with bonus points
 
 func _ready():
-	Events.connect("click_to_start", self, "on_click_to_start")
+	Events.connect("click_to_start", self, "_on_click_to_start")
+	Events.connect("player_hit", self, "_on_player_hit")
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
 		new_cannon.position.x = CANNON_SPAWN_POS + CANNON_SPAWN_OFFSET * i
@@ -57,7 +64,7 @@ func _ready():
 	debugPanel.hide()
 	level = 1
 	score = 0
-	lives = 4
+	lives = STARTING_LIVES
 	game_speed = BASE_GAME_SPEED
 	max_bullets = BASE_MAX_BULLETS_PER_LEVEL
 	
@@ -95,10 +102,7 @@ func fancy_start_cannons():
 
 
 func level_cleared():
-	# Stop everything
-	Events.emit_signal("stop_cannons")
-	get_tree().call_group("cannons", "clear_chambered_bullet")
-	get_tree().call_group("bullets", "clear_fired_bullet")
+	clear_everything()
 	
 	# Get next level ready
 	setup_next_level()
@@ -113,8 +117,30 @@ func setup_next_level():
 	levelStartPopup.popup()
 
 
-func on_click_to_start():
+func _on_click_to_start():
 	start_level()
+
+
+func _on_player_hit(area):
+	clear_everything()
+	lives -= 1
+	Events.emit_signal("update_lives", lives)
+	if lives == 0:
+		game_over()
+	else:
+		print("uh oh you died")
+		yield(get_tree().create_timer(3.0), "timeout")
+		print("lets try again")
+		fancy_start_cannons()
+
+
+func game_over():
+	print("game over")
+
+func clear_everything():
+	Events.emit_signal("stop_cannons")
+	get_tree().call_group("cannons", "clear_chambered_bullet")
+	get_tree().call_group("bullets", "clear_fired_bullet")
 
 
 func _on_CleanupZone_area_entered(area):
