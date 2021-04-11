@@ -7,13 +7,12 @@ onready var fireTimer = $FireTimer
 
 const BASE_RELOAD_TIME := 1.0
 const BASE_MIN_FIRE_TIME := 1.0
-const BASE_MAX_FIRE_TIME := 5.0
+const BASE_MAX_FIRE_TIME := 3.0
 const BASE_MIN_BULLET_SPEED := 125.0
 const BASE_MAX_BULLET_SPEED := 175.0
 
 var chambered_bullet: Area2D
 
-var game_speed: float
 var min_bullet_speed := BASE_MIN_BULLET_SPEED
 var max_bullet_speed := BASE_MAX_BULLET_SPEED
 var firing = false
@@ -41,7 +40,7 @@ func _reload():
 	# If no bullet is ready, make a bullet, add a random speed
 	if not chambered_bullet:
 		chambered_bullet = bullet.instance()
-		chambered_bullet.init(game_speed * get_bullet_speed())
+		chambered_bullet.init(get_random_bullet_speed())
 		self.add_child(chambered_bullet)
 	if firing:
 		start_fire_timer()
@@ -57,7 +56,7 @@ func on_FireTimer_timeout():
 
 
 func start_fire_timer():
-	var random_fire_time = get_fire_time()
+	var random_fire_time = get_random_fire_time()
 	fireTimer.start(random_fire_time)
 
 
@@ -65,11 +64,11 @@ func start_reload_timer():
 	reloadTimer.start(reload_time)
 
 
-func get_bullet_speed():
+func get_random_bullet_speed():
 	return rng.randf_range(min_bullet_speed, max_bullet_speed)
 
 
-func get_fire_time():
+func get_random_fire_time():
 	return rng.randf_range(min_fire_time, max_fire_time)
 
 
@@ -90,11 +89,16 @@ func clear_chambered_bullet():
 		chambered_bullet = null
 
 
-func update_game_speed(value):
-	game_speed = value
+######## UPDATE PARAMS ##############
+# Used in debug
 
+func update_all_params_with_dict(dict: Dictionary):
+	min_bullet_speed = dict.minSpeed
+	max_bullet_speed = dict.maxSpeed
+	reload_time = dict.reloadTime
+	min_fire_time = dict.minFireTime
+	max_fire_time = dict.maxFireTime
 
-# DEBUG ONLY
 func update_min_bullet_speed(value):
 	min_bullet_speed = value
 

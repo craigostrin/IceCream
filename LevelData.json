@@ -1,0 +1,115 @@
+{
+    "level": [
+        {
+            "id": "01",
+            "bonus": false,
+            "cream": "vanilla",
+            "param": {
+                "minSpeed": 125.0,
+                "maxSpeed": 175.0,
+                "reloadTime": 1.0,
+                "minFireTime": 1.0,
+                "maxFireTime": 3.0
+            },
+            "comment": "Probably good"
+        },
+
+        {
+            "id": "02",
+            "bonus": false,
+            "cream": "chocolate",
+            "param": {
+                "minSpeed": 150.0,
+                "maxSpeed": 200.0,
+                "reloadTime": 1.0,
+                "minFireTime": 1.0,
+                "maxFireTime": 3.0
+            },
+            "comment": "Get used to faster speeds before increasing fire rates"
+        },
+
+        {
+            "id": "03",
+            "bonus": false,
+            "cream": "strawberry",
+            "param": {
+                "minSpeed": 150.0,
+                "maxSpeed": 200.0,
+                "reloadTime": 1.0,
+                "minFireTime": 0.75,
+                "maxFireTime": 2.75
+            },
+            "comment": ""
+        },
+
+        {
+            "id": "04",
+            "bonus": false,
+            "cream": "pecan",
+            "param": {
+                "minSpeed": 150.0,
+                "maxSpeed": 200.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.75,
+                "maxFireTime": 2.75
+            },
+            "comment": ""
+        },
+
+        {
+            "id": "05",
+            "bonus": false,
+            "cream": "vanilla choc twist",
+            "param": {
+                "minSpeed": 150.0,
+                "maxSpeed": 200.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 2.25
+            },
+            "comment": "Feels like the first challenging level"
+        },
+
+        {
+            "id": "05bonus",
+            "bonus": true,
+            "cream": "assorted flavors",
+            "param": {
+                "minSpeed": 100.0,
+                "maxSpeed": 400.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 2.5
+            },
+            "comment": "Sudden death - if you die, go straight to next level but don't lose a life"
+        },
+
+        {
+            "id": "06",
+            "bonus": false,
+            "cream": "cookie dough",
+            "param": {
+                "minSpeed": 200.0,
+                "maxSpeed": 250.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 2.5
+            },
+            "comment": "Let's speed up again but keep it easy-ish to readjust to normal levels"
+        },
+
+        {
+            "id": "07",
+            "bonus": false,
+            "cream": "whiskey",
+            "param": {
+                "minSpeed": 200.0,
+                "maxSpeed": 250.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 2.0
+            },
+            "comment": "Let's speed up again but keep it easy-ish to readjust to normal levels"
+        }
+    ]
+}

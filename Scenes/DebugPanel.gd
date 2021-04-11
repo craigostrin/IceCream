@@ -7,14 +7,16 @@ onready var minFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer3/MinFireLin
 onready var maxFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer4/MaxFireLineEdit
 
 var firing := true
+var debug := false
 
 # Right-click start/stop button shortcut
 func _input(event):
-	if Input.is_action_just_pressed('right_click'):
-		if firing:
-			_on_StopButton_pressed()
-		else:
-			_on_StartButton_pressed()
+	if debug:
+		if Input.is_action_just_pressed('right_click'):
+			if firing:
+				_on_StopButton_pressed()
+			else:
+				_on_StartButton_pressed()
 
 func _on_MinSpeedLineEdit_text_entered(new_text):
 	if new_text.is_valid_float():

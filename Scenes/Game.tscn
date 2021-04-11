@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Font/RetroFontBig.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Font/RetroFontFooter.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scenes/LevelStartPopup.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/DebugPanel.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/LevelData.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -14,6 +15,9 @@ bg_color = Color( 0.152941, 0.152941, 0.152941, 0.470588 )
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="LevelData" type="Node" parent="."]
+script = ExtResource( 7 )
 
 [node name="Cannons" type="Node2D" parent="."]
 position = Vector2( 0, 600 )
@@ -106,7 +110,6 @@ text = "Cash: $0000"
 valign = 1
 
 [node name="DebugPanel" type="Panel" parent="CanvasLayer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -229,7 +232,7 @@ margin_left = 62.0
 margin_top = 7.0
 margin_right = 200.0
 margin_bottom = 21.0
-text = "Max Fire Time (d: 5.0)"
+text = "Max Fire Time (d: 3.0)"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer"]
 margin_left = 602.0

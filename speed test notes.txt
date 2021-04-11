@@ -1,2 +1,40 @@
+TODO: different flavors of ice cream for each level, make them unique i guess
+
+notes: big range of bullet speed makes for some very hard patterns, hard to follow (fun for a one-off or special level maybe. also consider giving the extra fast creams they're own color)
+
+-----------------LEVEL 1-----------------
+125/175/1.0/1.0/5.0
+Good speed, a little too much gap between creams sometimes
+125/175/1.0/1.0/3.0
+Probably good
+
+LEVEL 2
+150/200/same rates
+Get used to faster bullets before increasing fire rates
+
+LEVEL 3
+same speed/1.0/0.75/3.0
+seems good but 2.75 max feels better, less open space
+150/200/1.0/0.75/2.75
+
+LEVEL 4
+150/200/0.5/0.75/2.75
+
+LEVEL 5
+150/200/0.5/0.5/2.25
+feels like the first challenging level
+
+BONUS LEVEL: sudden death (if you die, go straight to the next level)
+100/400/0.5/0.5/2.5
+
+LEVEL 6 - lets speed up again (EASY-ISH)
+200/250/0.5/0.5/2.5
+
+LEVEL 7
+200/250/0.4/0.5/2
+
+
+
+----------------MAX LEVEL-----------------
 500/600/0.1/0.2/1.0
 - pretty good! maybe a tad too fast

@@ -1,6 +1,6 @@
 extends Node2D
 
-var debug := true
+var debug := false
 
 # Cannon setup
 const NUM_CANNONS := 8
@@ -8,12 +8,12 @@ const CANNON_SPAWN_POS := 45.0
 const CANNON_SPAWN_OFFSET := 90.0
 
 # Difficulty
-const BASE_GAME_SPEED := 1.0
 const BASE_MAX_BULLETS_PER_LEVEL := 25
 const STARTING_LIVES := 4
 
 const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
+
 var player: Area2D
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
 onready var debugPanel = $CanvasLayer/DebugPanel
@@ -27,7 +27,7 @@ var game_speed: float
 var bullets_dodged: int
 var max_bullets: int
 
-var level: int
+var level_index: int
 var score: int
 var lives: int
 
@@ -48,6 +48,10 @@ var points_per_normal_bullet_dodged = 5
 ## Different colors of bullets for variety
 #### - bullets with bonus points
 
+#### FOR FUN ####
+# Roguelike mode
+# Cheat detector (for when they go out of the window)
+
 func _ready():
 	Events.connect("click_to_start", self, "_on_click_to_start")
 	Events.connect("player_hit", self, "_on_player_hit")
@@ -62,17 +66,17 @@ func _ready():
 	
 	# LEVEL 1 SETUP
 	debugPanel.hide()
-	level = 1
+	level_index = 0
 	score = 0
 	lives = STARTING_LIVES
-	game_speed = BASE_GAME_SPEED
 	max_bullets = BASE_MAX_BULLETS_PER_LEVEL
+	update_cannon_params(level_index)
 	
 	if debug:
 		debugPanel.show()
+		debugPanel.debug = true
 		max_bullets = 1000
 	
-	get_tree().call_group("cannons", "update_game_speed", game_speed)
 	start_level()
 
 
@@ -109,12 +113,24 @@ func level_cleared():
 
 
 func setup_next_level():
-	level += 1
-	game_speed = BASE_GAME_SPEED + 1.0
-	get_tree().call_group("cannons", "update_game_speed", game_speed)
-	max_bullets = BASE_MAX_BULLETS_PER_LEVEL * level
+	level_index += 1
+	max_bullets = BASE_MAX_BULLETS_PER_LEVEL * (level_index + 1)
+	update_cannon_params(level_index)
+	
 	levelStartPopup.bullets_to_show = max_bullets
 	levelStartPopup.popup()
+
+
+func update_cannon_params(_level_index):
+	var index = _level_index
+	var dict = {}
+	
+	# Get parameter dictionary from Level Data node
+	dict = $LevelData.data.level[index].param
+	
+	get_tree().call_group("cannons", "update_all_params_with_dict", dict)
+	print("cannon params updated")
+	print(dict)
 
 
 func _on_click_to_start():
@@ -148,5 +164,6 @@ func _on_CleanupZone_area_entered(area):
 	bullets_dodged += 1
 	score += points_per_normal_bullet_dodged
 	Events.emit_signal("update_bullets_and_score", bullets_dodged, max_bullets, score)
+	
 	if bullets_dodged == max_bullets:
 		level_cleared()
