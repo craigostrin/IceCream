@@ -109,7 +109,21 @@
                 "minFireTime": 0.5,
                 "maxFireTime": 2.0
             },
-            "comment": "Let's speed up again but keep it easy-ish to readjust to normal levels"
+            "comment": "Crank the challenge up a bit (untested)"
+        },
+
+        {
+            "id": "07",
+            "bonus": false,
+            "cream": "coffee",
+            "param": {
+                "minSpeed": 200.0,
+                "maxSpeed": 250.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 2.0
+            },
+            "comment": "NEXT - untested"
         }
     ]
 }
