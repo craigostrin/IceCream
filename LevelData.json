@@ -3,6 +3,7 @@
         {
             "id": "01",
             "bonus": false,
+            "numBullets": 25,
             "cream": "vanilla",
             "param": {
                 "minSpeed": 125.0,
@@ -17,6 +18,7 @@
         {
             "id": "02",
             "bonus": false,
+            "numBullets": 50,
             "cream": "chocolate",
             "param": {
                 "minSpeed": 150.0,
@@ -31,6 +33,7 @@
         {
             "id": "03",
             "bonus": false,
+            "numBullets": 75,
             "cream": "strawberry",
             "param": {
                 "minSpeed": 150.0,
@@ -45,6 +48,7 @@
         {
             "id": "04",
             "bonus": false,
+            "numBullets": 100,
             "cream": "pecan",
             "param": {
                 "minSpeed": 150.0,
@@ -59,6 +63,7 @@
         {
             "id": "05",
             "bonus": false,
+            "numBullets": 125,
             "cream": "vanilla choc twist",
             "param": {
                 "minSpeed": 150.0,
@@ -73,6 +78,7 @@
         {
             "id": "05bonus",
             "bonus": true,
+            "numBullets": 200,
             "cream": "assorted flavors",
             "param": {
                 "minSpeed": 100.0,
@@ -87,6 +93,7 @@
         {
             "id": "06",
             "bonus": false,
+            "numBullets": 150,
             "cream": "cookie dough",
             "param": {
                 "minSpeed": 200.0,
@@ -101,6 +108,7 @@
         {
             "id": "07",
             "bonus": false,
+            "numBullets": 175,
             "cream": "whiskey",
             "param": {
                 "minSpeed": 200.0,
@@ -113,8 +121,9 @@
         },
 
         {
-            "id": "07",
+            "id": "08",
             "bonus": false,
+            "numBullets": 10000,
             "cream": "coffee",
             "param": {
                 "minSpeed": 200.0,
@@ -123,7 +132,7 @@
                 "minFireTime": 0.5,
                 "maxFireTime": 2.0
             },
-            "comment": "NEXT - untested"
+            "comment": "NEXT - untested - placeholder"
         }
     ]
 }

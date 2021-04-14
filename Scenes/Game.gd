@@ -28,6 +28,7 @@ var bullets_dodged: int
 var max_bullets: int
 
 var level_index: int
+var bonus_level: bool
 var score: int
 var lives: int
 
@@ -69,15 +70,13 @@ func _ready():
 	level_index = 0
 	score = 0
 	lives = STARTING_LIVES
-	max_bullets = BASE_MAX_BULLETS_PER_LEVEL
-	update_cannon_params(level_index)
 	
 	if debug:
 		debugPanel.show()
 		debugPanel.debug = true
 		max_bullets = 1000
 	
-	start_level()
+	setup_level(level_index)
 
 
 func _input(_event):
@@ -106,48 +105,52 @@ func fancy_start_cannons():
 
 
 func level_cleared():
+	level_index += 1
 	clear_everything()
 	
-	# Get next level ready
-	setup_next_level()
+	setup_level(level_index)
 
 
-func setup_next_level():
-	level_index += 1
-	max_bullets = BASE_MAX_BULLETS_PER_LEVEL * (level_index + 1)
-	update_cannon_params(level_index)
+func setup_level(index):
+	bonus_level = $LevelData.is_bonus_level(index)
+	if bonus_level: print("bonus")
+	max_bullets = $LevelData.get_num_bullets(index)
+	update_cannon_params(index)
 	
 	levelStartPopup.bullets_to_show = max_bullets
 	levelStartPopup.popup()
-
-
-func update_cannon_params(_level_index):
-	var index = _level_index
-	var dict = {}
-	
-	# Get parameter dictionary from Level Data node
-	dict = $LevelData.data.level[index].param
-	
-	get_tree().call_group("cannons", "update_all_params_with_dict", dict)
-	print("cannon params updated")
-	print(dict)
 
 
 func _on_click_to_start():
 	start_level()
 
 
+func update_cannon_params(_level_index):
+	var index = _level_index
+	var dict = {}
+	
+	dict = $LevelData.get_level_param_dict(index)
+	
+	get_tree().call_group("cannons", "update_all_params_with_dict", dict)
+	print("cannon params updated")
+	print(dict)
+
+
 func _on_player_hit(area):
-	clear_everything()
-	lives -= 1
-	Events.emit_signal("update_lives", lives)
-	if lives == 0:
-		game_over()
+	if bonus_level:
+		level_cleared()
+	
 	else:
-		print("uh oh you died")
-		yield(get_tree().create_timer(3.0), "timeout")
-		print("lets try again")
-		fancy_start_cannons()
+		clear_everything()
+		lives -= 1
+		Events.emit_signal("update_lives", lives)
+		if lives == 0:
+			game_over()
+		else:
+			print("uh oh you died")
+			yield(get_tree().create_timer(3.0), "timeout")
+			print("lets try again")
+			fancy_start_cannons()
 
 
 func game_over():

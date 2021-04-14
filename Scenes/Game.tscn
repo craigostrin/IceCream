@@ -350,27 +350,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
-margin_left = 79.0
-margin_top = -171.0
-margin_right = 427.0
-margin_bottom = -82.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_right = -20.0
-text = "Just find the easiest and hardest versions of what you want this game to be, and then figure out how to gradient the difficulty, how many levels, etc"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MinSpeedLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MaxSpeedLineEdit_text_entered"]
