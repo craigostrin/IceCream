@@ -26,9 +26,11 @@ func _ready():
 func get_level_param_dict(i):
 	return data.level[i].param
 
-
 func get_num_bullets(i):
 	return data.level[i].numBullets
 
 func is_bonus_level(i):
 	return data.level[i].bonus
+
+func get_num_levels():
+	return data.level.size()

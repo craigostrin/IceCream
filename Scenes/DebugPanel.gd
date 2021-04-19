@@ -2,6 +2,7 @@ extends Panel
 
 onready var minSpeedEdit = $HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit
 onready var maxSpeedEdit = $HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit
+onready var levelEdit = $HBoxContainer/VBoxContainer4/HBoxContainer/LevelLineEdit
 onready var reloadEdit = $HBoxContainer/HBoxContainer2/ReloadLineEdit
 onready var minFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer3/MinFireLineEdit
 onready var maxFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer4/MaxFireLineEdit
@@ -26,6 +27,7 @@ func _on_MinSpeedLineEdit_text_entered(new_text):
 	else:
 		print("Please enter a valid number.")
 
+
 func _on_MaxSpeedLineEdit_text_entered(new_text):
 	if new_text.is_valid_float():
 		var value = float(new_text)
@@ -33,6 +35,18 @@ func _on_MaxSpeedLineEdit_text_entered(new_text):
 		print("Max Bullet Speed = " + new_text)
 	else:
 		print("Please enter a valid number.")
+
+
+# This could probably use some tweaks
+func _on_LevelLineEdit_text_entered(new_text):
+	if new_text.is_valid_integer():
+		var value = int(new_text)
+		var game = get_tree().get_root().get_node("Game")
+		game.level_index = value - 1
+		game.level_cleared()
+	else:
+		print("Please enter a valid integer")
+
 
 func _on_ReloadLineEdit_text_entered(new_text):
 	if new_text.is_valid_float():
@@ -73,3 +87,5 @@ func _on_StartButton_pressed():
 	Events.emit_signal("start_cannons")
 	firing = true
 	print("======START======")
+
+

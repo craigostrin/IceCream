@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Font/RetroFontBig.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/LevelStartPopup.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/DebugPanel.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/LevelData.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/VictoryPopup.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -115,7 +116,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -360.0
-margin_top = -104.0
+margin_top = -114.0
 margin_right = 360.0
 margin_bottom = -42.0
 script = ExtResource( 6 )
@@ -126,132 +127,155 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DebugPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = -2.0
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer"]
 margin_right = 237.0
-margin_bottom = 62.0
+margin_bottom = 70.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2"]
 margin_right = 237.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MinSpeedLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer"]
 margin_right = 58.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 
 [node name="MinSpeedLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer"]
 margin_left = 62.0
-margin_top = 7.0
+margin_top = 9.0
 margin_right = 235.0
-margin_bottom = 21.0
+margin_bottom = 23.0
 text = "Min Bullet Speed (d: 125.0)"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2"]
-margin_top = 33.0
+margin_top = 37.0
 margin_right = 237.0
-margin_bottom = 62.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MaxSpeedLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4"]
 margin_right = 58.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 
 [node name="MaxSpeedLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4"]
 margin_left = 62.0
-margin_top = 7.0
+margin_top = 9.0
 margin_right = 237.0
-margin_bottom = 21.0
+margin_bottom = 23.0
 text = "Max Bullet Speed (d: 175.0)"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer"]
+[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer"]
 margin_left = 241.0
-margin_right = 394.0
-margin_bottom = 62.0
+margin_right = 401.0
+margin_bottom = 70.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4"]
+margin_right = 160.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 15
 
-[node name="ReloadLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/HBoxContainer2"]
-margin_top = 19.0
+[node name="ReloadLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4/HBoxContainer2"]
 margin_right = 58.0
-margin_bottom = 43.0
-size_flags_vertical = 4
+margin_bottom = 33.0
 align = 1
 
-[node name="ReloadLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/HBoxContainer2"]
+[node name="ReloadLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4/HBoxContainer2"]
 margin_left = 73.0
-margin_top = 15.0
+margin_top = 1.0
 margin_right = 153.0
-margin_bottom = 46.0
+margin_bottom = 32.0
 text = "Reload Time
 (default: 1.0)"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4"]
+margin_top = 37.0
+margin_right = 160.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LevelLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4/HBoxContainer"]
+margin_right = 58.0
+margin_bottom = 33.0
+
+[node name="LevelLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4/HBoxContainer"]
+margin_left = 62.0
+margin_top = 9.0
+margin_right = 160.0
+margin_bottom = 23.0
+text = "Set Level Index"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer"]
-margin_left = 398.0
-margin_right = 598.0
-margin_bottom = 62.0
+margin_left = 405.0
+margin_right = 605.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer"]
 margin_right = 200.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MinFireLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer/HBoxContainer3"]
 margin_right = 58.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 align = 1
 
 [node name="MinFireLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer/HBoxContainer3"]
 margin_left = 62.0
-margin_top = 7.0
+margin_top = 9.0
 margin_right = 198.0
-margin_bottom = 21.0
+margin_bottom = 23.0
 text = "Min Fire Time (d: 1.0)"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer"]
-margin_top = 33.0
+margin_top = 37.0
 margin_right = 200.0
-margin_bottom = 62.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="MaxFireLineEdit" type="LineEdit" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer/HBoxContainer4"]
 margin_right = 58.0
-margin_bottom = 29.0
+margin_bottom = 33.0
 align = 1
 
 [node name="MaxFireLabel" type="Label" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer/HBoxContainer4"]
 margin_left = 62.0
-margin_top = 7.0
+margin_top = 9.0
 margin_right = 200.0
-margin_bottom = 21.0
+margin_bottom = 23.0
 text = "Max Fire Time (d: 3.0)"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/DebugPanel/HBoxContainer"]
-margin_left = 602.0
+margin_left = 609.0
 margin_right = 720.0
-margin_bottom = 62.0
+margin_bottom = 70.0
 size_flags_horizontal = 3
 
 [node name="StopButton" type="Button" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer3"]
 modulate = Color( 0.945098, 0.305882, 0.305882, 1 )
-margin_right = 118.0
-margin_bottom = 29.0
+margin_right = 111.0
+margin_bottom = 33.0
 size_flags_vertical = 3
 text = "STOP"
 
 [node name="StartButton" type="Button" parent="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer3"]
 modulate = Color( 0.109804, 0.952941, 0.0823529, 1 )
-margin_top = 33.0
-margin_right = 118.0
-margin_bottom = 62.0
+margin_top = 37.0
+margin_right = 111.0
+margin_bottom = 70.0
 size_flags_vertical = 3
 text = "START"
 
@@ -350,12 +374,107 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VictoryPopup" type="Popup" parent="CanvasLayer"]
+pause_mode = 2
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.667419
+margin_bottom = -0.667419
+popup_exclusive = true
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="CanvasLayer/VictoryPopup"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -241.0
+margin_top = -264.242
+margin_right = 240.0
+margin_bottom = 200.758
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CongratsLabel" type="Label" parent="CanvasLayer/VictoryPopup/Panel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -208.0
+margin_top = 10.0
+margin_right = 208.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 1 )
+text = "Congratulizations
+
+You've escaped the
+IcE CreaM ZonE
+
+...for Now"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CashEarnedLabel" type="Label" parent="CanvasLayer/VictoryPopup/Panel"]
+modulate = Color( 0.305882, 0.788235, 0.0352941, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -207.5
+margin_top = 200.135
+margin_right = 208.5
+margin_bottom = 404.135
+custom_fonts/font = ExtResource( 1 )
+text = "$$$ earned: 0000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VictoryPopup/Panel"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 62.0
+margin_top = -79.8921
+margin_right = -61.0
+margin_bottom = -31.8921
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartAgain" type="Button" parent="CanvasLayer/VictoryPopup/Panel/HBoxContainer"]
+margin_right = 154.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Start Again"
+
+[node name="MainMenu" type="Button" parent="CanvasLayer/VictoryPopup/Panel/HBoxContainer"]
+margin_left = 204.0
+margin_right = 358.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Main Menu"
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MinSpeedLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MaxSpeedLineEdit_text_entered"]
-[connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/HBoxContainer2/ReloadLineEdit" to="CanvasLayer/DebugPanel" method="_on_ReloadLineEdit_text_entered"]
+[connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4/HBoxContainer2/ReloadLineEdit" to="CanvasLayer/DebugPanel" method="_on_ReloadLineEdit_text_entered"]
+[connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer4/HBoxContainer/LevelLineEdit" to="CanvasLayer/DebugPanel" method="_on_LevelLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer/HBoxContainer3/MinFireLineEdit" to="CanvasLayer/DebugPanel" method="_on_MinFireLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer/HBoxContainer4/MaxFireLineEdit" to="CanvasLayer/DebugPanel" method="_on_MaxFireLineEdit_text_entered"]
 [connection signal="pressed" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer3/StopButton" to="CanvasLayer/DebugPanel" method="_on_StopButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer3/StartButton" to="CanvasLayer/DebugPanel" method="_on_StartButton_pressed"]
 [connection signal="about_to_show" from="CanvasLayer/LevelStartPopup" to="CanvasLayer/LevelStartPopup" method="_on_LevelStartPopup_about_to_show"]
+[connection signal="about_to_show" from="CanvasLayer/VictoryPopup" to="CanvasLayer/VictoryPopup" method="_on_VictoryPopup_about_to_show"]
+[connection signal="pressed" from="CanvasLayer/VictoryPopup/Panel/HBoxContainer/StartAgain" to="CanvasLayer/VictoryPopup" method="_on_StartAgain_pressed"]
+[connection signal="pressed" from="CanvasLayer/VictoryPopup/Panel/HBoxContainer/MainMenu" to="CanvasLayer/VictoryPopup" method="_on_MainMenu_pressed"]

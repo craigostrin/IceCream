@@ -16,6 +16,7 @@ const Player = preload("res://Scenes/Player.tscn")
 
 var player: Area2D
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
+onready var victoryPopup = $CanvasLayer/VictoryPopup
 onready var debugPanel = $CanvasLayer/DebugPanel
 
 var num_of_cannons := NUM_CANNONS
@@ -28,6 +29,7 @@ var bullets_dodged: int
 var max_bullets: int
 
 var level_index: int
+var num_of_levels: int # including bonus levels
 var bonus_level: bool
 var score: int
 var lives: int
@@ -64,6 +66,9 @@ func _ready():
 	player = Player.instance()
 	player.position = Vector2(360,360)
 	self.add_child(player)
+	
+	num_of_levels = $LevelData.get_num_levels()
+	print(num_of_levels)
 	
 	# LEVEL 1 SETUP
 	debugPanel.hide()
@@ -108,13 +113,17 @@ func level_cleared():
 	level_index += 1
 	clear_everything()
 	
-	setup_level(level_index)
+	if level_index >= num_of_levels:
+		win_the_game()
+	else:
+		setup_level(level_index)
 
 
 func setup_level(index):
 	bonus_level = $LevelData.is_bonus_level(index)
 	if bonus_level: print("bonus")
-	max_bullets = $LevelData.get_num_bullets(index)
+	
+	max_bullets = 1 #$LevelData.get_num_bullets(index)
 	update_cannon_params(index)
 	
 	levelStartPopup.bullets_to_show = max_bullets
@@ -124,6 +133,14 @@ func setup_level(index):
 func _on_click_to_start():
 	start_level()
 
+
+func game_over():
+	print("game over")
+
+
+func win_the_game():
+	victoryPopup.cash_earned = score
+	victoryPopup.popup()
 
 func update_cannon_params(_level_index):
 	var index = _level_index
@@ -152,9 +169,6 @@ func _on_player_hit(area):
 			print("lets try again")
 			fancy_start_cannons()
 
-
-func game_over():
-	print("game over")
 
 func clear_everything():
 	Events.emit_signal("stop_cannons")
