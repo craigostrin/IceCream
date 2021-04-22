@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Events="*res://Singletons/Events.gd"
+Stats="*res://Singletons/Stats.gd"
 
 [debug]
 

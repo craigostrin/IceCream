@@ -68,13 +68,13 @@ func _ready():
 	self.add_child(player)
 	
 	num_of_levels = $LevelData.get_num_levels()
-	print(num_of_levels)
 	
 	# LEVEL 1 SETUP
 	debugPanel.hide()
 	level_index = 0
 	score = 0
 	lives = STARTING_LIVES
+	Stats.runs += 1
 	
 	if debug:
 		debugPanel.show()
@@ -149,8 +149,7 @@ func update_cannon_params(_level_index):
 	dict = $LevelData.get_level_param_dict(index)
 	
 	get_tree().call_group("cannons", "update_all_params_with_dict", dict)
-	print("cannon params updated")
-	print(dict)
+	print("level " + str(level_index) + ": " + str(dict))
 
 
 func _on_player_hit(area):
