@@ -5,21 +5,16 @@ var bullet = preload("res://Scenes/Bullet.tscn")
 onready var reloadTimer = $ReloadTimer
 onready var fireTimer = $FireTimer
 
-const BASE_RELOAD_TIME := 1.0
-const BASE_MIN_FIRE_TIME := 1.0
-const BASE_MAX_FIRE_TIME := 3.0
-const BASE_MIN_BULLET_SPEED := 125.0
-const BASE_MAX_BULLET_SPEED := 175.0
-
 var chambered_bullet: Area2D
-
-var min_bullet_speed := BASE_MIN_BULLET_SPEED
-var max_bullet_speed := BASE_MAX_BULLET_SPEED
 var firing = false
 
-var reload_time := BASE_RELOAD_TIME
-var min_fire_time := BASE_MIN_FIRE_TIME
-var max_fire_time := BASE_MAX_FIRE_TIME
+# level params
+var min_bullet_speed: float
+var max_bullet_speed: float
+var reload_time: float
+var min_fire_time: float
+var max_fire_time: float
+var bullet_texture: Texture
 
 func _ready():
 	rng.randomize()
@@ -40,7 +35,7 @@ func _reload():
 	# If no bullet is ready, make a bullet, add a random speed
 	if not chambered_bullet:
 		chambered_bullet = bullet.instance()
-		chambered_bullet.init(get_random_bullet_speed())
+		chambered_bullet.init(get_random_bullet_speed(), bullet_texture)
 		self.add_child(chambered_bullet)
 	if firing:
 		start_fire_timer()
@@ -98,6 +93,7 @@ func update_all_params_with_dict(dict: Dictionary):
 	reload_time = dict.reloadTime
 	min_fire_time = dict.minFireTime
 	max_fire_time = dict.maxFireTime
+	bullet_texture = load("res://Art/" + dict.bulletTexture)
 
 func update_min_bullet_speed(value):
 	min_bullet_speed = value

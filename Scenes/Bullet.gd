@@ -3,8 +3,9 @@ extends Area2D
 var speed: float
 var firing := false
 
-func init(_speed):
+func init(_speed: float, cream: Texture):
 	speed = _speed
+	$Sprite.texture = cream
 
 
 func _process(delta):

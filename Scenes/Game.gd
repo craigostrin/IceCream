@@ -37,7 +37,12 @@ var lives: int
 var points_per_normal_bullet_dodged = 5
 
 ### TODO ###
-## Build a debugging tool to change bullet speed, reload time, fire time while game is running
+## BONUS LEVEL = Waffle cone
+
+# Power ups and bonus point bullets need to be coordinated from Game node:
+### Random generator will randomly pick a cannon out of the children of Cannons
+### On that cannon, set "make next bullet bonus/powerup of X type"
+### Cannon will take care of the rest 
 
 ## Powerups - must touch the bullet, one slot, get overwritten (encouraged to use them quickly)
 #### - pause & teleport
