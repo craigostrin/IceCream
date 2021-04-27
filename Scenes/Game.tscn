@@ -111,6 +111,7 @@ text = "Cash: $0000"
 valign = 1
 
 [node name="DebugPanel" type="Panel" parent="CanvasLayer"]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -281,6 +282,7 @@ text = "START"
 
 [node name="LevelStartPopup" type="Popup" parent="CanvasLayer"]
 pause_mode = 2
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -0.667419
@@ -314,10 +316,11 @@ margin_top = 10.0
 margin_right = 208.0
 margin_bottom = 75.0
 custom_fonts/font = ExtResource( 1 )
-text = "Level cleared
-get Ready for the Next Level!"
+text = "Level cleared.
+get Ready for *Flavor*"
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -335,23 +338,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BulletsTextLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel/VBoxContainer"]
+[node name="ScoopsLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel/VBoxContainer"]
+margin_top = 19.0
 margin_right = 268.0
-margin_bottom = 36.0
+margin_bottom = 55.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
 custom_fonts/font = ExtResource( 1 )
-text = "Number of bullets:"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BulletsNumLabel" type="Label" parent="CanvasLayer/LevelStartPopup/Panel/VBoxContainer"]
-margin_top = 40.0
-margin_right = 268.0
-margin_bottom = 76.0
-custom_fonts/font = ExtResource( 1 )
-text = "000"
+text = "Dodge XX scoops!"
 align = 1
 valign = 1
 __meta__ = {
@@ -367,7 +361,7 @@ margin_left = -156.0
 margin_top = -75.0
 margin_right = 156.0
 custom_fonts/font = ExtResource( 1 )
-text = "Left-click to start..."
+text = "Click to start..."
 align = 1
 valign = 1
 __meta__ = {
@@ -464,7 +458,6 @@ margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Main Menu"
-
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MinSpeedLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MaxSpeedLineEdit_text_entered"]

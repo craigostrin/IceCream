@@ -13,6 +13,7 @@ const STARTING_LIVES := 4
 
 const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
+const Mask = preload("res://Scenes/Mask.tscn")
 
 var player: Area2D
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
@@ -20,10 +21,6 @@ onready var victoryPopup = $CanvasLayer/VictoryPopup
 onready var debugPanel = $CanvasLayer/DebugPanel
 
 var num_of_cannons := NUM_CANNONS
-
-# To set on cannons, which also have their own game_speed var
-# Multiplies bullet speed, might be used for reload/fire rates but not currently? 3/7/21
-var game_speed: float
 
 var bullets_dodged: int
 var max_bullets: int
@@ -40,7 +37,7 @@ var points_per_normal_bullet_dodged = 5
 ## BONUS LEVEL = Waffle cone
 
 # Power ups and bonus point bullets need to be coordinated from Game node:
-### Random generator will randomly pick a cannon out of the children of Cannons
+### Randomly pick a cannon out of the children of Cannons
 ### On that cannon, set "make next bullet bonus/powerup of X type"
 ### Cannon will take care of the rest 
 
@@ -61,8 +58,13 @@ var points_per_normal_bullet_dodged = 5
 # Cheat detector (for when they go out of the window)
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
+	#warning-ignore:return_value_discarded
 	Events.connect("click_to_start", self, "_on_click_to_start")
+	#warning-ignore:return_value_discarded
 	Events.connect("player_hit", self, "_on_player_hit")
+	
 	for i in range(num_of_cannons):
 		var new_cannon = Cannon.instance()
 		new_cannon.position.x = CANNON_SPAWN_POS + CANNON_SPAWN_OFFSET * i
@@ -85,6 +87,7 @@ func _ready():
 		debugPanel.show()
 		debugPanel.debug = true
 		max_bullets = 1000
+		level_index = 4
 	
 	setup_level(level_index)
 
@@ -115,6 +118,7 @@ func fancy_start_cannons():
 
 
 func level_cleared():
+	Events.emit_signal("level_cleared")
 	level_index += 1
 	clear_everything()
 	
@@ -125,13 +129,17 @@ func level_cleared():
 
 
 func setup_level(index):
-	bonus_level = $LevelData.is_bonus_level(index)
-	if bonus_level: print("bonus")
-	
-	max_bullets = 1 #$LevelData.get_num_bullets(index)
+	max_bullets = $LevelData.get_num_bullets(index)
 	update_cannon_params(index)
 	
+	bonus_level = $LevelData.is_bonus_level(index)
+	if bonus_level:
+		setup_cannon_texture_array_for_bonus_level()
+	
+	levelStartPopup.first_level = true if index == 0 else false
+	levelStartPopup.bonus_level = bonus_level
 	levelStartPopup.bullets_to_show = max_bullets
+	levelStartPopup.cream_to_show = $LevelData.get_cream(index)
 	levelStartPopup.popup()
 
 
@@ -140,6 +148,8 @@ func _on_click_to_start():
 
 
 func game_over():
+	var mask_texture = get_mask_texture()
+	player.mask_on(mask_texture)
 	print("game over")
 
 
@@ -157,7 +167,7 @@ func update_cannon_params(_level_index):
 	print("level " + str(level_index) + ": " + str(dict))
 
 
-func _on_player_hit(area):
+func _on_player_hit(_area):
 	if bonus_level:
 		level_cleared()
 	
@@ -168,9 +178,11 @@ func _on_player_hit(area):
 		if lives == 0:
 			game_over()
 		else:
-			print("uh oh you died")
+			var mask_texture = get_mask_texture()
+			player.mask_on(mask_texture)
 			yield(get_tree().create_timer(3.0), "timeout")
-			print("lets try again")
+			player.mask_off()
+			
 			fancy_start_cannons()
 
 
@@ -188,3 +200,33 @@ func _on_CleanupZone_area_entered(area):
 	
 	if bullets_dodged == max_bullets:
 		level_cleared()
+
+
+func get_mask_texture():
+	var dict = $LevelData.get_level_param_dict(level_index)
+	var t = load("res://Art/" + dict.bulletTexture)
+	return t
+
+
+# Get the last textures from the previous 5 levels and put them in an array
+func create_cream_texture_array_for_bonus_level() -> Array:
+	var a: Array
+	
+	for i in range(5):
+		var texture_filename
+		var texture
+		var index
+		index = level_index - (i + 1)
+		texture_filename = $LevelData.get_bullet_texture_filename(index)
+		texture = load("res://Art/" + texture_filename)
+		a.append(texture)
+	
+	return a
+
+
+func setup_cannon_texture_array_for_bonus_level():
+	var array = create_cream_texture_array_for_bonus_level()
+	for cannon in $Cannons.get_children():
+		cannon.bonus_textures = array
+		cannon.bonus_level = true
+	#get_tree().call_group("cannons", "update_bonus_texture_array", array)

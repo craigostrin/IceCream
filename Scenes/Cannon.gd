@@ -15,10 +15,13 @@ var reload_time: float
 var min_fire_time: float
 var max_fire_time: float
 var bullet_texture: Texture
+var bonus_level: bool
+var bonus_textures: Array
 
 func _ready():
 	rng.randomize()
-	
+	#warning-ignore:return_value_discarded
+	Events.connect("level_cleared", self, "_on_level_cleared")
 	#warning-ignore:return_value_discarded
 	Events.connect("start_cannons", self, "on_start_cannons")
 	#warning-ignore:return_value_discarded
@@ -35,7 +38,8 @@ func _reload():
 	# If no bullet is ready, make a bullet, add a random speed
 	if not chambered_bullet:
 		chambered_bullet = bullet.instance()
-		chambered_bullet.init(get_random_bullet_speed(), bullet_texture)
+		var t = bullet_texture if not bonus_level else get_random_texture_from_array()
+		chambered_bullet.init(get_random_bullet_speed(), t)
 		self.add_child(chambered_bullet)
 	if firing:
 		start_fire_timer()
@@ -84,8 +88,21 @@ func clear_chambered_bullet():
 		chambered_bullet = null
 
 
+func update_bonus_texture_array(a: Array):
+	bonus_textures = a
+
+
+func get_random_texture_from_array() -> Texture:
+	var random_index = rng.randi_range(0, bonus_textures.size() - 1)
+	var t = bonus_textures[random_index]
+	return t
+
+
+func _on_level_cleared() -> void:
+	if bonus_level:
+		bonus_level = false
+
 ######## UPDATE PARAMS ##############
-# Used in debug
 
 func update_all_params_with_dict(dict: Dictionary):
 	min_bullet_speed = dict.minSpeed
@@ -94,6 +111,8 @@ func update_all_params_with_dict(dict: Dictionary):
 	min_fire_time = dict.minFireTime
 	max_fire_time = dict.maxFireTime
 	bullet_texture = load("res://Art/" + dict.bulletTexture)
+
+# Below are just used for debug
 
 func update_min_bullet_speed(value):
 	min_bullet_speed = value

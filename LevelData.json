@@ -11,7 +11,7 @@
                 "reloadTime": 1.0,
                 "minFireTime": 1.0,
                 "maxFireTime": 3.0,
-                "bulletTexture": "cream_vani.png"
+                "bulletTexture": "cream_vanilla.png"
             },
             "comment": "Probably good"
         },
@@ -27,7 +27,7 @@
                 "reloadTime": 1.0,
                 "minFireTime": 1.0,
                 "maxFireTime": 3.0,
-                "bulletTexture": "cream_choc.png"
+                "bulletTexture": "cream_chocolate.png"
             },
             "comment": "Get used to faster speeds before increasing fire rates"
         },
@@ -43,7 +43,7 @@
                 "reloadTime": 1.0,
                 "minFireTime": 0.75,
                 "maxFireTime": 2.75,
-                "bulletTexture": "cream_stra.png"
+                "bulletTexture": "cream_strawberry.png"
             },
             "comment": ""
         },
@@ -52,14 +52,14 @@
             "id": "04",
             "bonus": false,
             "numBullets": 100,
-            "cream": "pecan",
+            "cream": "pistachio",
             "param": {
                 "minSpeed": 150.0,
                 "maxSpeed": 200.0,
                 "reloadTime": 0.5,
                 "minFireTime": 0.75,
                 "maxFireTime": 2.75,
-                "bulletTexture": "cream_vani.png"
+                "bulletTexture": "cream_pistachio.png"
             },
             "comment": ""
         },
@@ -68,14 +68,14 @@
             "id": "05",
             "bonus": false,
             "numBullets": 125,
-            "cream": "vanilla choc twist",
+            "cream": "neopolitan",
             "param": {
                 "minSpeed": 150.0,
                 "maxSpeed": 200.0,
                 "reloadTime": 0.5,
                 "minFireTime": 0.5,
                 "maxFireTime": 2.25,
-                "bulletTexture": "cream_vani.png"
+                "bulletTexture": "cream_neopolitan.png"
             },
             "comment": "Feels like the first challenging level"
         },
@@ -100,14 +100,14 @@
             "id": "06",
             "bonus": false,
             "numBullets": 150,
-            "cream": "raspberry",
+            "cream": "sprinkles",
             "param": {
                 "minSpeed": 200.0,
                 "maxSpeed": 250.0,
                 "reloadTime": 0.5,
                 "minFireTime": 0.5,
                 "maxFireTime": 2.5,
-                "bulletTexture": "cream_rasp.png"
+                "bulletTexture": "cream_sprinkles.png"
             },
             "comment": "Let's speed up again but keep it easy-ish to readjust to normal levels"
         },
@@ -116,32 +116,32 @@
             "id": "07",
             "bonus": false,
             "numBullets": 175,
-            "cream": "strawberry shortcake",
+            "cream": "ube",
             "param": {
                 "minSpeed": 200.0,
                 "maxSpeed": 250.0,
                 "reloadTime": 0.5,
                 "minFireTime": 0.5,
                 "maxFireTime": 2.0,
-                "bulletTexture": "cream_shortcake.png"
+                "bulletTexture": "cream_ube.png"
             },
-            "comment": "Crank the challenge up a bit (untested)"
+            "comment": "Good!"
         },
 
         {
             "id": "08",
             "bonus": false,
             "numBullets": 10000,
-            "cream": "coffee",
+            "cream": "cotton candy",
             "param": {
                 "minSpeed": 200.0,
                 "maxSpeed": 250.0,
                 "reloadTime": 0.5,
                 "minFireTime": 0.5,
                 "maxFireTime": 2.0,
-                "bulletTexture": "cream_vani.png"
+                "bulletTexture": "cream_cotton_candy.png"
             },
-            "comment": "NEXT - untested - placeholder"
+            "comment": "UNTESTED - PLACEHOLDER - next bonus is after 10"
         }
     ]
 }

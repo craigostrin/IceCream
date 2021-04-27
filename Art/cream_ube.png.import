@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/doomguy_face.png-26d6083d3a524eb1aa9df4ded800eeb5.stex"
+path="res://.import/cream_ube.png-694696091009e3b310d79c290b91bff2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/doomguy_face.png"
-dest_files=[ "res://.import/doomguy_face.png-26d6083d3a524eb1aa9df4ded800eeb5.stex" ]
+source_file="res://Art/cream_ube.png"
+dest_files=[ "res://.import/cream_ube.png-694696091009e3b310d79c290b91bff2.stex" ]
 
 [params]
 

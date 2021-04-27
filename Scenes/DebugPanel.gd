@@ -1,17 +1,10 @@
 extends Panel
 
-onready var minSpeedEdit = $HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit
-onready var maxSpeedEdit = $HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit
-onready var levelEdit = $HBoxContainer/VBoxContainer4/HBoxContainer/LevelLineEdit
-onready var reloadEdit = $HBoxContainer/HBoxContainer2/ReloadLineEdit
-onready var minFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer3/MinFireLineEdit
-onready var maxFireEdit = $HBoxContainer/VBoxContainer/HBoxContainer4/MaxFireLineEdit
-
 var firing := true
 var debug := false
 
 # Right-click start/stop button shortcut
-func _input(event):
+func _input(_event):
 	if debug:
 		if Input.is_action_just_pressed('right_click'):
 			if firing:

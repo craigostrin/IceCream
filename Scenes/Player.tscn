@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Art/doomguy_face.png" type="Texture" id=1]
+[ext_resource path="res://Art/larold.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=2]
-
+[ext_resource path="res://Scenes/Mask.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 18.5
@@ -13,10 +13,20 @@ collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.1, 0.1 )
+light_mask = 1024
+scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
+[node name="Mask" parent="." instance=ExtResource( 3 )]
+visible = false
 [connection signal="area_entered" from="." to="." method="_on_Player_area_entered"]
