@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Horror Stories by Patrick de Arteaga.ogg-bfc4c52003e247e0d1f6c8e680742ad4.oggstr"
+
+[deps]
+
+source_file="res://Sound/Horror Stories by Patrick de Arteaga.ogg"
+dest_files=[ "res://.import/Horror Stories by Patrick de Arteaga.ogg-bfc4c52003e247e0d1f6c8e680742ad4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

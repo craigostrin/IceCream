@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cream_vani.png-f7bb6a4a0da21651afcbf64464ed0cdf.stex"
+path="res://.import/Speaker_Icon.png-29a35c1bcf7d357e6d4730de4b547284.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/cream_vani.png"
-dest_files=[ "res://.import/cream_vani.png-f7bb6a4a0da21651afcbf64464ed0cdf.stex" ]
+source_file="res://Art/Speaker_Icon.png"
+dest_files=[ "res://.import/Speaker_Icon.png-29a35c1bcf7d357e6d4730de4b547284.stex" ]
 
 [params]
 

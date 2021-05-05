@@ -15,6 +15,11 @@ const Cannon = preload("res://Scenes/Cannon.tscn")
 const Player = preload("res://Scenes/Player.tscn")
 const Mask = preload("res://Scenes/Mask.tscn")
 
+const GAME_PATH = "res://Scenes/Game.tscn"
+const MAIN_MENU_PATH = "res://Scenes/MainMenu.tscn"
+
+var music_on := false
+
 var player: Area2D
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
 onready var victoryPopup = $CanvasLayer/VictoryPopup
@@ -59,6 +64,7 @@ var points_per_normal_bullet_dodged = 5
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	if music_on: $MusicPlayer.play()
 	
 	#warning-ignore:return_value_discarded
 	Events.connect("click_to_start", self, "_on_click_to_start")
@@ -210,7 +216,7 @@ func get_mask_texture():
 
 # Get the last textures from the previous 5 levels and put them in an array
 func create_cream_texture_array_for_bonus_level() -> Array:
-	var a: Array
+	var a = []
 	
 	for i in range(5):
 		var texture_filename
@@ -230,3 +236,19 @@ func setup_cannon_texture_array_for_bonus_level():
 		cannon.bonus_textures = array
 		cannon.bonus_level = true
 	#get_tree().call_group("cannons", "update_bonus_texture_array", array)
+
+
+######## VICTORY POPUP BUTTONS ########
+func _on_StartAgain_pressed():
+	var GAME = load(GAME_PATH)
+	var game = GAME.instance()
+	game.music_on = music_on
+	get_tree().get_root().add_child(game)
+	self.queue_free()
+
+
+func _on_MainMenu_pressed():
+	var MAIN_MENU = load(MAIN_MENU_PATH)
+	var main_menu = MAIN_MENU.instance()
+	get_tree().get_root().add_child(main_menu)
+	self.queue_free()

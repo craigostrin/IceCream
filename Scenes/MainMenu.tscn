@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Font/RetroFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Font/RetroFontTitleBig.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://Scenes/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://Sound/Horror Stories by Patrick de Arteaga.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Font/RetroFontSmall.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Art/Speaker_Icon_white.png" type="Texture" id=6]
+[ext_resource path="res://Art/Speaker_Mute_Icon_white.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -22,8 +26,6 @@ __meta__ = {
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_right = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -36,13 +38,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -188.0
+margin_top = -105.0
+margin_right = 188.0
+margin_bottom = 186.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TitleText" type="Control" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -20.0
-margin_top = 146.272
-margin_right = 20.0
-margin_bottom = 186.272
+margin_left = -242.0
+margin_top = 101.0
+margin_right = 241.0
+margin_bottom = 231.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -82,62 +98,69 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="StartLabel" type="RichTextLabel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -41.5
-margin_top = -20.0
-margin_right = 41.5
-margin_bottom = 20.0
-custom_constants/separation = 10
+margin_left = -140.017
+margin_top = 209.0
+margin_right = -26.0169
+margin_bottom = 255.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]START[/center]"
+text = "START"
+fit_content_height = true
+scroll_active = false
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="StartGame" type="Button" parent="Buttons"]
-margin_right = 89.0
-margin_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Start Game"
-
-[node name="HowToPlay" type="Button" parent="Buttons"]
-margin_top = 30.0
-margin_right = 89.0
-margin_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "How To Play"
-
-[node name="Settings" type="Button" parent="Buttons"]
-margin_top = 60.0
-margin_right = 89.0
-margin_bottom = 80.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Settings"
-
-[node name="Quit" type="Button" parent="Buttons"]
-margin_top = 90.0
-margin_right = 89.0
-margin_bottom = 110.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Quit"
-
-[node name="Label" type="Label" parent="."]
-margin_left = 66.2253
-margin_top = 28.0616
-margin_right = 341.225
-margin_bottom = 42.0616
-text = "Choose lactose-intolerant Lisbeth or Larold"
+[node name="ExitLabel" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 66.6196
+margin_top = 216.148
+margin_right = 126.62
+margin_bottom = 247.148
+size_flags_horizontal = 3
+custom_fonts/normal_font = ExtResource( 5 )
+bbcode_enabled = true
+bbcode_text = "[center]Exit[/center]"
+text = "Exit"
+scroll_active = false
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 autoplay = true
-[connection signal="pressed" from="Buttons/StartGame" to="." method="_on_StartGame_pressed"]
-[connection signal="pressed" from="Buttons/Quit" to="." method="_on_Quit_pressed"]
+
+[node name="MusicToggleButton" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -55.0
+margin_top = 15.0
+margin_right = 199.786
+margin_bottom = 272.227
+rect_scale = Vector2( 0.15, 0.15 )
+toggle_mode = true
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="StartLabel" to="." method="_on_StartLabel_gui_input"]
+[connection signal="mouse_entered" from="StartLabel" to="." method="_on_StartLabel_mouse_entered"]
+[connection signal="mouse_exited" from="StartLabel" to="." method="_on_StartLabel_mouse_exited"]
+[connection signal="gui_input" from="ExitLabel" to="." method="_on_ExitLabel_gui_input"]
+[connection signal="mouse_entered" from="ExitLabel" to="." method="_on_ExitLabel_mouse_entered"]
+[connection signal="mouse_exited" from="ExitLabel" to="." method="_on_ExitLabel_mouse_exited"]
+[connection signal="pressed" from="MusicToggleButton" to="." method="_on_MusicToggleButton_pressed"]

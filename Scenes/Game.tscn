@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Font/RetroFontBig.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/DebugPanel.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/LevelData.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/VictoryPopup.gd" type="Script" id=8]
+[ext_resource path="res://Sound/Memoraphile - Spooky Dungeon - CC0 or CCBY4.ogg" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -83,14 +84,14 @@ margin_bottom = 37.0
 size_flags_horizontal = 3
 
 [node name="BulletsLabel" type="Label" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer/CenterContainer2"]
-margin_left = 36.0
+margin_left = 32.0
 margin_top = 5.0
-margin_right = 201.0
+margin_right = 204.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 4 )
-text = "Scoops 000/000"
+text = "Scoops: 000/000"
 valign = 1
 
 [node name="CenterContainer3" type="CenterContainer" parent="CanvasLayer/GUI/FooterPanel/HBoxContainer"]
@@ -282,7 +283,6 @@ text = "START"
 
 [node name="LevelStartPopup" type="Popup" parent="CanvasLayer"]
 pause_mode = 2
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -0.667419
@@ -458,6 +458,11 @@ margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Main Menu"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MinSpeedLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MaxSpeedLineEdit_text_entered"]
@@ -469,5 +474,5 @@ text = "Main Menu"
 [connection signal="pressed" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer3/StartButton" to="CanvasLayer/DebugPanel" method="_on_StartButton_pressed"]
 [connection signal="about_to_show" from="CanvasLayer/LevelStartPopup" to="CanvasLayer/LevelStartPopup" method="_on_LevelStartPopup_about_to_show"]
 [connection signal="about_to_show" from="CanvasLayer/VictoryPopup" to="CanvasLayer/VictoryPopup" method="_on_VictoryPopup_about_to_show"]
-[connection signal="pressed" from="CanvasLayer/VictoryPopup/Panel/HBoxContainer/StartAgain" to="CanvasLayer/VictoryPopup" method="_on_StartAgain_pressed"]
-[connection signal="pressed" from="CanvasLayer/VictoryPopup/Panel/HBoxContainer/MainMenu" to="CanvasLayer/VictoryPopup" method="_on_MainMenu_pressed"]
+[connection signal="pressed" from="CanvasLayer/VictoryPopup/Panel/HBoxContainer/StartAgain" to="." method="_on_StartAgain_pressed"]
+[connection signal="pressed" from="CanvasLayer/VictoryPopup/Panel/HBoxContainer/MainMenu" to="." method="_on_MainMenu_pressed"]
