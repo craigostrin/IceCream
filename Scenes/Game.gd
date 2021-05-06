@@ -208,6 +208,23 @@ func _on_CleanupZone_area_entered(area):
 		level_cleared()
 
 
+######## VICTORY POPUP BUTTONS -- CHANGE SCENE ########
+func _on_StartAgain_pressed():
+	var GAME = load(GAME_PATH)
+	var game = GAME.instance()
+	game.music_on = music_on
+	get_tree().get_root().add_child(game)
+	self.queue_free()
+
+
+func _on_MainMenu_pressed():
+	var MAIN_MENU = load(MAIN_MENU_PATH)
+	var main_menu = MAIN_MENU.instance()
+	get_tree().get_root().add_child(main_menu)
+	self.queue_free()
+
+
+######### TEXTURE STUFF #########
 func get_mask_texture():
 	var dict = $LevelData.get_level_param_dict(level_index)
 	var t = load("res://Art/" + dict.bulletTexture)
@@ -238,17 +255,3 @@ func setup_cannon_texture_array_for_bonus_level():
 	#get_tree().call_group("cannons", "update_bonus_texture_array", array)
 
 
-######## VICTORY POPUP BUTTONS ########
-func _on_StartAgain_pressed():
-	var GAME = load(GAME_PATH)
-	var game = GAME.instance()
-	game.music_on = music_on
-	get_tree().get_root().add_child(game)
-	self.queue_free()
-
-
-func _on_MainMenu_pressed():
-	var MAIN_MENU = load(MAIN_MENU_PATH)
-	var main_menu = MAIN_MENU.instance()
-	get_tree().get_root().add_child(main_menu)
-	self.queue_free()
