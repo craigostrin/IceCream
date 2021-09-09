@@ -4,7 +4,7 @@
             "id": "01",
             "bonus": false,
             "numBullets": 25,
-            "cream": "vanilla",
+            "cream": "Vanilla",
             "param": {
                 "minSpeed": 125.0,
                 "maxSpeed": 175.0,
@@ -20,7 +20,7 @@
             "id": "02",
             "bonus": false,
             "numBullets": 50,
-            "cream": "chocolate",
+            "cream": "Chocolate",
             "param": {
                 "minSpeed": 150.0,
                 "maxSpeed": 200.0,
@@ -36,7 +36,7 @@
             "id": "03",
             "bonus": false,
             "numBullets": 75,
-            "cream": "strawberry",
+            "cream": "Strawberry",
             "param": {
                 "minSpeed": 150.0,
                 "maxSpeed": 200.0,
@@ -52,7 +52,7 @@
             "id": "04",
             "bonus": false,
             "numBullets": 100,
-            "cream": "pistachio",
+            "cream": "Pistachio",
             "param": {
                 "minSpeed": 150.0,
                 "maxSpeed": 200.0,
@@ -68,7 +68,7 @@
             "id": "05",
             "bonus": false,
             "numBullets": 125,
-            "cream": "neopolitan",
+            "cream": "Neopolitan",
             "param": {
                 "minSpeed": 150.0,
                 "maxSpeed": 200.0,
@@ -84,7 +84,7 @@
             "id": "05bonus",
             "bonus": true,
             "numBullets": 200,
-            "cream": "assorted flavors",
+            "cream": "Assorted Flavors",
             "param": {
                 "minSpeed": 100.0,
                 "maxSpeed": 400.0,
@@ -100,7 +100,7 @@
             "id": "06",
             "bonus": false,
             "numBullets": 150,
-            "cream": "sprinkles",
+            "cream": "Sprinkles",
             "param": {
                 "minSpeed": 200.0,
                 "maxSpeed": 250.0,
@@ -116,7 +116,7 @@
             "id": "07",
             "bonus": false,
             "numBullets": 175,
-            "cream": "ube",
+            "cream": "Ube",
             "param": {
                 "minSpeed": 200.0,
                 "maxSpeed": 250.0,
@@ -131,17 +131,113 @@
         {
             "id": "08",
             "bonus": false,
-            "numBullets": 10000,
-            "cream": "cotton candy",
+            "numBullets": 200,
+            "cream": "Cotton Candy",
             "param": {
-                "minSpeed": 200.0,
-                "maxSpeed": 250.0,
+                "minSpeed": 300.0,
+                "maxSpeed": 400.0,
                 "reloadTime": 0.5,
                 "minFireTime": 0.5,
                 "maxFireTime": 2.0,
                 "bulletTexture": "cream_cotton_candy.png"
             },
-            "comment": "UNTESTED - PLACEHOLDER - next bonus is after 10"
+            "comment": "Faster speed but easy reload/fire times to let you get used to the speed"
+        },
+
+        {
+            "id": "09",
+            "bonus": false,
+            "numBullets": 225,
+            "cream": "Volley Boy",
+            "param": {
+                "minSpeed": 300.0,
+                "maxSpeed": 400.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 1.0,
+                "bulletTexture": "cream_hinata.png"
+            },
+            "comment": "faster speeds AND faster fire times"
+        },
+
+        {
+            "id": "10",
+            "bonus": false,
+            "numBullets": 250,
+            "cream": "Hallowe'en",
+            "param": {
+                "minSpeed": 300.0,
+                "maxSpeed": 500.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 1.0,
+                "bulletTexture": "cream_halloween.png"
+            },
+            "comment": "faster speeds, fire times, AND half the reload times"
+        },
+
+        {
+            "id": "10bonus",
+            "bonus": true,
+            "numBullets": 250,
+            "cream": "Assorted Flavors 2",
+            "param": {
+                "minSpeed": 150.0,
+                "maxSpeed": 700.0,
+                "reloadTime": 0.5,
+                "minFireTime": 0.5,
+                "maxFireTime": 1.0,
+                "bulletTexture": "cream_halloween.png"
+            },
+            "comment": "much faster and much slower"
+        },
+
+        {
+            "id": "11",
+            "bonus": false,
+            "numBullets": 275,
+            "cream": "Ocean dEEp",
+            "param": {
+                "minSpeed": 300.0,
+                "maxSpeed": 500.0,
+                "reloadTime": 0.4,
+                "minFireTime": 0.5,
+                "maxFireTime": 1.25,
+                "bulletTexture": "cream_ocean_deep.png"
+            },
+            "comment": "same as 10 but slightly faster reload times"
+        },
+
+        {
+            "id": "12",
+            "bonus": false,
+            "numBullets": 300,
+            "cream": "Hawaiian XD",
+            "param": {
+                "minSpeed": 300.0,
+                "maxSpeed": 600.0,
+                "reloadTime": 0.3,
+                "minFireTime": 0.35,
+                "maxFireTime": 1.05,
+                "bulletTexture": "cream_hawaiian.png"
+            },
+            "comment": "x"
+        },
+
+        {
+            "id": "13",
+            "bonus": false,
+            "numBullets": 325,
+            "cream": "BL0000D",
+            "param": {
+                "minSpeed": 400.0,
+                "maxSpeed": 800.0,
+                "reloadTime": 0.3,
+                "minFireTime": 0.35,
+                "maxFireTime": 1.05,
+                "bulletTexture": "cream_blood.png"
+            },
+            "comment": "FINAL LEVEL LETS GO"
         }
     ]
 }

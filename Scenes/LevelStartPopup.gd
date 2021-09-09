@@ -20,8 +20,8 @@ func _on_LevelStartPopup_about_to_show():
 	if first_level:
 		getReadyLabel.text = "Move your mouse\nto avoid the ice cream"
 	elif bonus_level:
-		getReadyLabel.text = "Next: BONUS LEVEL!\nget Ready for " + cream_to_show.capitalize()
+		getReadyLabel.text = "Next: BONUS LEVEL!\nget Ready for " + cream_to_show
 	else:
-		getReadyLabel.text = "Level cleared.\nget Ready for " + cream_to_show.capitalize()
+		getReadyLabel.text = "Level cleared.\nget Ready for " + cream_to_show
 	
 	scoopsLabel.text = "Dodge " + str(bullets_to_show) + " scoops!"

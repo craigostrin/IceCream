@@ -10,14 +10,14 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
 
-config/name="IceCream"
-run/main_scene="res://Scenes/Game.tscn"
-config/icon="res://icon.png"
+config/name="The Ice Cream Zone"
+config/description="Help Lactose Intolerant Larold escape his worst nightmare!"
+run/main_scene="res://Scenes/MainMenu.tscn"
+config/icon="res://Art/larold.png"
 
 [audio]
 
@@ -27,6 +27,7 @@ default_bus_layout="res://Sound/default_bus_layout.tres"
 
 Events="*res://Singletons/Events.gd"
 Stats="*res://Singletons/Stats.gd"
+Rng="*res://AutoLoad/RNG.gd"
 
 [debug]
 
@@ -39,11 +40,6 @@ window/size/height=720
 
 [input]
 
-quit={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"unicode":0,"echo":false,"script":null)
- ]
-}
 pause={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
@@ -68,4 +64,5 @@ right_click={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"

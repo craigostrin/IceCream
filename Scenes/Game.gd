@@ -21,6 +21,7 @@ const MAIN_MENU_PATH = "res://Scenes/MainMenu.tscn"
 var music_on := false
 
 var player: Area2D
+var lower_player_bound := 512
 onready var levelStartPopup = $CanvasLayer/LevelStartPopup
 onready var victoryPopup = $CanvasLayer/VictoryPopup
 onready var debugPanel = $CanvasLayer/DebugPanel
@@ -36,7 +37,8 @@ var bonus_level: bool
 var score: int
 var lives: int
 
-var points_per_normal_bullet_dodged = 5
+var points_per_normal_bullet_dodged := 5
+var points_lost_per_hit := 50
 
 ### TODO ###
 ## BONUS LEVEL = Waffle cone
@@ -84,7 +86,7 @@ func _ready():
 	
 	# LEVEL 1 SETUP
 	debugPanel.hide()
-	level_index = 0
+	level_index = 5
 	score = 0
 	lives = STARTING_LIVES
 	Stats.runs += 1
@@ -92,19 +94,14 @@ func _ready():
 	if debug:
 		debugPanel.show()
 		debugPanel.debug = true
-		max_bullets = 1000
-		level_index = 4
+		level_index = 14
 	
 	setup_level(level_index)
 
 
-func _input(_event):
-	if Input.is_action_just_pressed('quit'):
-		get_tree().quit()
-
-
 func _process(_delta):
 	player.position = get_global_mouse_position()
+	player.position.y = clamp(player.position.y, 0, lower_player_bound)
 
 
 func start_level():
@@ -156,10 +153,26 @@ func _on_click_to_start():
 func game_over():
 	var mask_texture = get_mask_texture()
 	player.mask_on(mask_texture)
+	
+	var game_over_msg := "GAME OVER\n\n" \
+	+ "You're lost in the\n" \
+	+ "IcE CreaM ZonE\n\n" \
+	+ "...for Now"
+	
+	victoryPopup.get_node("Panel/CongratsLabel").text = game_over_msg
+	victoryPopup.cash_earned = score
+	victoryPopup.popup()
+	
 	print("game over")
 
 
 func win_the_game():
+	var victory_msg := "Congratulizations\n\n" \
+	+ "You've escaped the\n" \
+	+ "IcE CreaM ZonE\n\n" \
+	+ "...for Now"
+	
+	victoryPopup.get_node("Panel/CongratsLabel").text = victory_msg
 	victoryPopup.cash_earned = score
 	victoryPopup.popup()
 
@@ -180,10 +193,13 @@ func _on_player_hit(_area):
 	else:
 		clear_everything()
 		lives -= 1
-		Events.emit_signal("update_lives", lives)
-		if lives == 0:
+		score -= points_lost_per_hit
+		score = int(clamp(score, 0, INF))
+		Events.emit_signal("update_bullets_and_score", bullets_dodged, max_bullets, score)
+		if lives < 0:
 			game_over()
 		else:
+			Events.emit_signal("update_lives", lives)
 			var mask_texture = get_mask_texture()
 			player.mask_on(mask_texture)
 			yield(get_tree().create_timer(3.0), "timeout")
@@ -205,6 +221,8 @@ func _on_CleanupZone_area_entered(area):
 	Events.emit_signal("update_bullets_and_score", bullets_dodged, max_bullets, score)
 	
 	if bullets_dodged == max_bullets:
+		if bonus_level:
+			lives += 1
 		level_cleared()
 
 

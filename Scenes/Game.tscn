@@ -463,6 +463,7 @@ text = "Main Menu"
 stream = ExtResource( 9 )
 
 [node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="area_entered" from="CleanupZone" to="." method="_on_CleanupZone_area_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer/MinSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MinSpeedLineEdit_text_entered"]
 [connection signal="text_entered" from="CanvasLayer/DebugPanel/HBoxContainer/VBoxContainer2/HBoxContainer4/MaxSpeedLineEdit" to="CanvasLayer/DebugPanel" method="_on_MaxSpeedLineEdit_text_entered"]

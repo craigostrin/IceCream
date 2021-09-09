@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Font/RetroFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Font/RetroFontTitleBig.tres" type="DynamicFontData" id=2]
@@ -7,6 +7,19 @@
 [ext_resource path="res://Font/RetroFontSmall.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Art/Speaker_Icon_white.png" type="Texture" id=6]
 [ext_resource path="res://Art/Speaker_Mute_Icon_white.png" type="Texture" id=7]
+[ext_resource path="res://Art/Public access ice cream/Two_adults.jpg" type="Texture" id=8]
+[ext_resource path="res://Art/Public access ice cream/Jared_Leto_guy.jpg" type="Texture" id=9]
+[ext_resource path="res://Animation/MainMenu_image_neg_flash.tres" type="Animation" id=10]
+[ext_resource path="res://Art/Public access ice cream/Jared_Leto_guy_NEG.jpg" type="Texture" id=11]
+[ext_resource path="res://Art/Public access ice cream/Smiling_kids_at_counter.jpg" type="Texture" id=12]
+[ext_resource path="res://Art/Public access ice cream/Southland_Ice.jpg" type="Texture" id=13]
+[ext_resource path="res://Art/Public access ice cream/Smiling_kids_at_counter_NEG.jpg" type="Texture" id=14]
+[ext_resource path="res://Art/Public access ice cream/Two_adults_NEG.jpg" type="Texture" id=15]
+[ext_resource path="res://Art/Public access ice cream/Southland_Ice_NEG.jpg" type="Texture" id=16]
+[ext_resource path="res://Art/Public access ice cream/Baby_girl_NEG.jpg" type="Texture" id=17]
+[ext_resource path="res://Art/Public access ice cream/Baby_girl.jpg" type="Texture" id=18]
+[ext_resource path="res://Art/Public access ice cream/Two_little_girls.jpg" type="Texture" id=19]
+[ext_resource path="res://Art/Public access ice cream/Two_little_girls_NEG.jpg" type="Texture" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -22,6 +35,25 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+images = [ {
+"base": ExtResource( 8 ),
+"neg": ExtResource( 15 )
+}, {
+"base": ExtResource( 18 ),
+"neg": ExtResource( 17 )
+}, {
+"base": ExtResource( 9 ),
+"neg": ExtResource( 11 )
+}, {
+"base": ExtResource( 12 ),
+"neg": ExtResource( 14 )
+}, {
+"base": ExtResource( 13 ),
+"neg": ExtResource( 16 )
+}, {
+"base": ExtResource( 19 ),
+"neg": ExtResource( 20 )
+} ]
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -30,7 +62,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TempColorRect" type="ColorRect" parent="Background"]
+[node name="TempBG" type="ColorRect" parent="Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.243137, 0.215686, 0.211765, 1 )
@@ -48,6 +80,29 @@ margin_top = -105.0
 margin_right = 188.0
 margin_bottom = 186.0
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Background/ColorRect/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 366.0
+margin_bottom = 281.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -157,6 +212,11 @@ stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "image_neg_flash"
+anims/image_neg_flash = ExtResource( 10 )
+
 [connection signal="gui_input" from="StartLabel" to="." method="_on_StartLabel_gui_input"]
 [connection signal="mouse_entered" from="StartLabel" to="." method="_on_StartLabel_mouse_entered"]
 [connection signal="mouse_exited" from="StartLabel" to="." method="_on_StartLabel_mouse_exited"]

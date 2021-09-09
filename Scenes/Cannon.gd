@@ -1,6 +1,6 @@
 extends Node2D
 
-var rng = RandomNumberGenerator.new()
+var rng = Rng.RNG
 var bullet = preload("res://Scenes/Bullet.tscn")
 onready var reloadTimer = $ReloadTimer
 onready var fireTimer = $FireTimer
@@ -19,7 +19,6 @@ var bonus_level: bool
 var bonus_textures: Array
 
 func _ready():
-	rng.randomize()
 	#warning-ignore:return_value_discarded
 	Events.connect("level_cleared", self, "_on_level_cleared")
 	#warning-ignore:return_value_discarded
